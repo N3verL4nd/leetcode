@@ -1,5 +1,8 @@
 package _342;
 
+/**
+ * 342. Power of Four
+ */
 public class Solution {
     private int LowBit(int x) {
         return  x & (-x);

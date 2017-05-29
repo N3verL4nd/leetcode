@@ -4,6 +4,9 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * 1. Two Sum
+ */
 public class Solution {
     public int[] twoSum(int[] nums, int target) {
         int[] arr = new int[2];
@@ -13,7 +16,7 @@ public class Solution {
                 arr[1] = i;
                 for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
                     if (entry.getValue() == (target - nums[i])) {
-                        arr[0] = entry.getKey();
+                        arr[1] = entry.getKey();
                     }
                 }
                 return arr;

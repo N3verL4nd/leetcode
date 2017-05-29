@@ -1,5 +1,8 @@
 package _231;
 
+/**
+ * 231. Power of Two
+ */
 public class Solution {
     private int LowBit(int x) {
         return  x & (-x);

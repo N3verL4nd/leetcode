@@ -1,5 +1,8 @@
 package _461;
 
+/**
+ * 461. Hamming Distance
+ */
 public class Solution {
     public int hammingDistance(int x, int y) {
         int result = 0;

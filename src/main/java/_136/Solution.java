@@ -1,7 +1,7 @@
 package _136;
 
 /**
- * Created by N3verL4nd on 2017/5/27.
+ * 136. Single Number
  */
 public class Solution {
     public int singleNumber(int[] nums) {

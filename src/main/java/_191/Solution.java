@@ -1,5 +1,8 @@
 package _191;
 
+/**
+ * 191. Number of 1 Bits
+ */
 public class Solution {
     //借用下树状数组=^=
     int LowBit(int x) {

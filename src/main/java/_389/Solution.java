@@ -1,5 +1,8 @@
 package _389;
 
+/**
+ * 389. Find the Difference
+ */
 public class Solution {
     public char findTheDifference(String s, String t) {
         if (s.length() == 0) {

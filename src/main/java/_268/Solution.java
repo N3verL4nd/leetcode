@@ -1,7 +1,7 @@
 package _268;
 
 /**
- * Created by N3verL4nd on 2017/5/27.
+ * 268. Missing Number
  */
 public class Solution {
     public int missingNumber(int[] nums) {
