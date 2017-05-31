@@ -1,3 +1,5 @@
+package _371;
+
 public class Solution {
     public int getSum(int a, int b) {
         if (b == 0) {
@@ -5,7 +7,6 @@ public class Solution {
         }
         int c = a ^ b;
         int d = (a & b) << 1;
-        System.out.println("c = " + Integer.toBinaryString(c) + ";d = " + Integer.toBinaryString(d));
         return getSum(c, d);
     }
 

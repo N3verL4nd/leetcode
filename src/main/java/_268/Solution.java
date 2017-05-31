@@ -14,7 +14,7 @@ public class Solution {
     }
 
     public static void main(String[] args) {
-        int[] arr = {1, 0};
+        int[] arr = {0, 1, 3};
         Solution solution = new Solution();
         System.out.println(solution.missingNumber(arr));
     }

@@ -12,17 +12,12 @@ public class Solution {
         int[] arr = new int[2];
         Map<Integer, Integer> map = new HashMap<>();
         for (int i = 0; i < nums.length; i++) {
-            if (map.containsValue(target - nums[i])) {
+            if (map.containsKey(target - nums[i])) {
+                arr[0] = map.get(target - nums[i]);
                 arr[1] = i;
-                for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
-                    if (entry.getValue() == (target - nums[i])) {
-                        arr[1] = entry.getKey();
-                    }
-                }
-                return arr;
-            } else {
-                map.put(i, nums[i]);
+                break;
             }
+            map.put(nums[i], i);
         }
         return arr;
     }
