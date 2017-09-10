@@ -11,7 +11,7 @@ import java.util.Random;
 * @email lgh1992314@qq.com
 * @date 2017/9/10
 */
-public class Main {
+public class QuickSort {
 
     private static int partition(int[] arr, int left, int right) {
         /**
