@@ -7,8 +7,13 @@
       <sourceFolder url="file://$MODULE_DIR$/src/main/java" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/main/resources" type="java-resource" />
       <excludeFolder url="file://$MODULE_DIR$/src/main/java/solutions/_137" />
+      <excludeFolder url="file://$MODULE_DIR$/src/main/java/solutions/_141" />
+      <excludeFolder url="file://$MODULE_DIR$/src/main/java/solutions/_15" />
       <excludeFolder url="file://$MODULE_DIR$/src/main/java/solutions/_2" />
-      <excludeFolder url="file://$MODULE_DIR$/src/main/java/solutions/_229" />
+      <excludeFolder url="file://$MODULE_DIR$/src/main/java/solutions/_203" />
+      <excludeFolder url="file://$MODULE_DIR$/src/main/java/solutions/_31" />
+      <excludeFolder url="file://$MODULE_DIR$/src/main/java/solutions/_493" />
+      <excludeFolder url="file://$MODULE_DIR$/src/main/java/solutions/_60" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

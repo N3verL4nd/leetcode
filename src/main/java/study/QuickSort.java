@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.Random;
 
 /**
-* @file Main.java
+* @file QuickSort.java
 * @CopyRight (C) http://blog.csdn.net/x_iya
 * @Description 快速排序
 * @author N3verL4nd
@@ -16,7 +16,7 @@ public class QuickSort {
     private static int partition(int[] arr, int left, int right) {
         /**
          * 步骤 1: 设置基准元素
-         * 这里的一个潜台词是 arr[left] 所对应的元素已经是无效的(已经由基准元素代替)
+         * 这里的一个潜台词是 arr[left] 所对应的元素已经是无效的(已经由基准元素保存)
          */
         int pivot = arr[left];
 
@@ -30,7 +30,7 @@ public class QuickSort {
             // 此时 arr[right] 又变成了无效元素
             arr[left] = arr[right];
 
-            // 从数列坐边开始找一个比基准元素大的元素
+            // 从数列左边开始找一个比基准元素大的元素
             while (left < right && arr[left] <= pivot) {
                 left++;
             }
@@ -38,7 +38,10 @@ public class QuickSort {
             // 把一个比基准元素大的元素放置在无效位置上
             arr[right] = arr[left];
         }
+
+        // 把基准元素放在无效位置上
         arr[left] = pivot;
+        //返回基准元素位置
         return left;
     }
 

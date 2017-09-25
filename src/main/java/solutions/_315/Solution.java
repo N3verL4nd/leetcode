@@ -7,56 +7,25 @@ import java.util.*;
  */
 
 public class Solution {
+    private int[] arr;
+    private int n;
+
     //内部类
-    class pair implements Comparable<pair>{
-        private Integer key;
-        private Integer val;
+    class Node implements Comparable<Node> {
+        int pos;
+        int value;
 
-        public pair() {
-        }
-
-        public pair(Integer key, Integer val) {
-            this.key = key;
-            this.val = val;
-        }
-
-        public Integer getKey() {
-            return key;
-        }
-
-        public void setKey(Integer key) {
-            this.key = key;
-        }
-
-        public Integer getVal() {
-            return val;
-        }
-
-        public void setVal(Integer val) {
-            this.val = val;
+        public Node(int pos, int value) {
+            this.pos = pos;
+            this.value = value;
         }
 
         @Override
-        public String toString() {
-            return "pair{" +
-                    "key=" + key +
-                    ", val=" + val +
-                    '}';
-        }
-
-        @Override
-        public int compareTo(pair o) {
-            if (Objects.equals(val, o.val)) {
-                return key - o.key;
-            } else {
-                return val - o.val;
-            }
+        public int compareTo(Node o) {
+            return value - o.value;
         }
     }
 
-
-    private int[] arr;
-    private int n;
     private int LowBit(int x) {
         return x & (-x);
     }
@@ -78,32 +47,37 @@ public class Solution {
     }
 
     public List<Integer> countSmaller(int[] nums) {
-        arr = new int[nums.length + 1];//"树状数组"
-        n = nums.length;//"树状数组"长度
-        List<Integer> result = new LinkedList<>();
+        n = nums.length;       // 树状数组长度
+        arr = new int[n + 1];  // 树状数组
 
-        //离散化
-        int[] temp = new int[nums.length + 1];
-        List<pair> list = new LinkedList<>();
+        List<Integer> result = new ArrayList<>();
 
+        Node[] nodes = new Node[n];
         for (int i = 0; i < n; i++) {
-            list.add(new pair(i + 1, nums[i]));
+            nodes[i] = new Node(i, nums[i]);
         }
 
-        Collections.sort(list);
+        Arrays.sort(nodes);
 
-        int pos = 1;
-        for (pair p : list) {
-            temp[p.getKey()] = pos++;
+        int i, j;
+        for (i = 0, j = 1; i < n - 1; i++, j++) {
+            nums[nodes[i].pos] = j;
+            if (nodes[i].value == nodes[i + 1].value) {
+                j--;
+            }
         }
 
-//        System.out.println(list);
-//        System.out.println(Arrays.toString(temp));
-
-        for (int i = n; i >= 1; i--) {
-            update(temp[i], 1);
-            result.add(getSum(temp[i]) - 1);
+        if (i == n - 1) {
+            nums[nodes[i].pos] = j;
         }
+
+        System.out.println(Arrays.toString(nums));
+
+        for (int k = n - 1; k >= 0; k--) {
+            update(nums[k], 1);
+            result.add(getSum(nums[k] - 1));
+        }
+
         Collections.reverse(result);
         return result;
     }
@@ -112,6 +86,6 @@ public class Solution {
         Solution solution = new Solution();
         int[] arr = {-1, -1};
         List<Integer> list = solution.countSmaller(arr);
-        list.forEach(System.out::println);
+        System.out.println(list);
     }
 }
