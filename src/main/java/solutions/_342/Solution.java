@@ -5,9 +5,10 @@ package solutions._342;
  */
 public class Solution {
     private int LowBit(int x) {
-        return  x & (-x);
+        return x & (-x);
     }
-    public boolean isPowerOfFour(int num) {
+
+    public boolean isPowerOfFour1(int num) {
         if (num <= 0) {
             return false;
         }
@@ -25,6 +26,16 @@ public class Solution {
         } else {
             return false;
         }
+    }
+
+    public boolean isPowerOfFour(int num) {
+        if ((num & (num - 1)) != 0) {
+            return false;
+        }
+        if ((num - 1) % 3 != 0) {
+            return false;
+        }
+        return true;
     }
 
     public static void main(String[] args) {

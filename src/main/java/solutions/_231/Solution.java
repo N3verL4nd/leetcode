@@ -5,9 +5,10 @@ package solutions._231;
  */
 public class Solution {
     private int LowBit(int x) {
-        return  x & (-x);
+        return x & (-x);
     }
-    public boolean isPowerOfTwo(int n) {
+
+    public boolean isPowerOfTwo1(int n) {
         boolean flag = false;
         if (n <= 0) {
             return false;
@@ -16,6 +17,13 @@ public class Solution {
             return true;
         }
         return false;
+    }
+
+    public boolean isPowerOfTwo(int n) {
+        if (n <= 0)
+            return false;
+        n = n & (n - 1);
+        return n == 0;
     }
 
     public static void main(String[] args) {

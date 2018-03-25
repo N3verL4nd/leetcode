@@ -25,12 +25,13 @@ class Solution {
                 p = p.next;
             }
         }
+        //第一个结点需要特殊处理
         return head.val == val ? head.next : head;
     }
 
     public static void main(String[] args) {
         Solution solution = new Solution();
-        int[] arr = {1, 2, 6, 3, 4, 5, 6};
+        int[] arr = {1, 6};
         ListNode list = new ListNode(arr[0]);
         ListNode tail = list;
         for (int i = 1; i < arr.length; i++) {

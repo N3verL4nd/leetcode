@@ -1,16 +1,36 @@
 package solutions._141;
 
+import utils.ListNode;
+
+import java.util.HashSet;
+import java.util.Set;
+
 public class Solution {
-    public boolean hasCycle(ListNode head) {
+    public boolean hasCycle1(ListNode head) {
+        Set<ListNode> set = new HashSet<>();
         while (head != null) {
-            ListNode p = head.next;
-            while (p != null) {
-                if (p == head) {
-                    return true;
-                }
-                p = p.next;
+            if (set.contains(head)) {
+                return true;
+            } else {
+                set.add(head);
             }
             head = head.next;
+        }
+        return false;
+    }
+
+    public boolean hasCycle2(ListNode head) {
+        if (head == null) {
+            return false;
+        }
+        ListNode slow = head;
+        ListNode fast = head;
+        while (fast != null && fast.next != null) {
+            fast = fast.next.next;
+            slow = slow.next;
+            if (fast == slow) {
+                return true;
+            }
         }
         return false;
     }
@@ -25,6 +45,7 @@ public class Solution {
         node3.next = node4;
         node4.next = node1;
 
-        System.out.println(new Solution().hasCycle(node1));
+        System.out.println(new Solution().hasCycle1(node1));
+        System.out.println(new Solution().hasCycle2(node1));
     }
 }

@@ -8,7 +8,8 @@ public class Solution {
     int LowBit(int x) {
         return x & (-x);
     }
-    public int hammingWeight(int n) {
+
+    public int hammingWeight1(int n) {
         int result = 0;
         while (n != 0) {
             result++;
@@ -17,9 +18,18 @@ public class Solution {
         return result;
     }
 
+    public int hammingWeight(int n) {
+        int count = 0;
+        while (n != 0) {
+            n = n & (n - 1);
+            count++;
+        }
+        return count;
+    }
+
     public static void main(String[] args) {
         Solution solution = new Solution();
-        for (int i = 0; i <=16 ; i++) {
+        for (int i = 0; i <= 16; i++) {
             System.out.println(i + " " + solution.hammingWeight(i));
         }
     }
