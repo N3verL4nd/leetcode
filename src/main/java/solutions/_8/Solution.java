@@ -9,14 +9,12 @@ class Solution {
             return 0;
         }
         long result = 0;
-        char[] arr = str.toCharArray();
         boolean flag = false;
         int i = 0;
 
-        // 去除前导空格
-        while (i < arr.length && arr[i] == ' ') {
-            i++;
-        }
+        // 去除前缀后缀空格
+        str = str.trim();
+        char[] arr = str.toCharArray();
 
         // 判断正负
         if (i < arr.length) {
