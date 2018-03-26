@@ -7,6 +7,10 @@ import utils.ListNode;
  */
 class Solution {
     public ListNode rotateRight(ListNode head, int k) {
+        return null;
+    }
+
+    public static void main(String[] args) {
 
     }
 }
