@@ -22,6 +22,7 @@ public class Solution {
         return arr;
     }
 
+
     public static void main(String[] args) {
         int[] arr = {2, 7, 11, 15};
         Solution solution = new Solution();

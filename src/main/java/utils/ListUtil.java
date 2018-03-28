@@ -2,7 +2,7 @@ package utils;
 
 public class ListUtil {
     /**
-     * 尾插法建立链表(无头结点)
+     * 尾插法建立单链表(无头结点)
      *
      * @param arr 链表元素
      * @return
@@ -24,7 +24,7 @@ public class ListUtil {
     /**
      * 遍历链表
      *
-     * @param head 头指针
+     * @param head 头结点
      */
     public static void show(ListNode head) {
         while (head != null) {

@@ -1,49 +1,50 @@
 package test;
 
+import java.util.ArrayList;
+import java.util.List;
 
-public class Solution {
-    private int BinarySearchLeft(int[] arr, int left, int right, int target) {
-        while (left <= right) {
-            int mid = (left + right) / 2;
-            if (target <= arr[mid]) {
-                right = mid - 1;
-            } else {
-                left = mid + 1;
-            }
+/**
+ * 216. Combination Sum III
+ */
+
+class Solution {
+    private List<List<Integer>> result = new ArrayList<>();
+    private List<Integer> cur = new ArrayList<>();
+    private int k;
+    private int n;
+
+    private void DFS(int len, int curSum, int pos) {
+        if (len > n) {
+            return;
         }
-        if (left < arr.length && arr[left] == target) {
-            return left;
+        if (curSum > n) {
+            return;
         }
-        return -1;
+        if (curSum == n && k == len) {
+            result.add(new ArrayList<>(cur));
+            return;
+        }
+
+        for (int i = pos + 1; i <= 9; i++) {
+            cur.add(i);
+            DFS(len + 1, i + curSum, i);
+            cur.remove(cur.size() - 1);
+        }
     }
 
-    private int BinarySearchRight(int[] arr, int left, int right, int target) {
-        while (left <= right) {
-            int mid = (left + right) / 2;
-            if (target >= arr[mid]) {
-                left = mid + 1;
-            } else {
-                right = mid - 1;
-            }
+    public List<List<Integer>> combinationSum3(int k, int n) {
+        if (n <= 0) {
+            return result;
         }
-        if (right >= 0 && arr[right] == target) {
-            return right;
-        }
-        return -1;
-    }
-
-    public int GetNumberOfK(int[] array, int k) {
-        int leftPos = BinarySearchLeft(array, 0, array.length - 1, k);
-        if (leftPos == -1) {
-            return 0;
-        }
-        int rightPos = BinarySearchRight(array, 0, array.length - 1, k);
-        return rightPos - leftPos + 1;
+        this.k = k;
+        this.n = n;
+        DFS(0, 0, 0);
+        return result;
     }
 
     public static void main(String[] args) {
-        char x = '0' + 9;
-        System.out.println(x);
+        Solution solution = new Solution();
+        System.out.println(solution.combinationSum3(3, 7));
+        System.out.println(solution.combinationSum3(3, 9));
     }
 }
-

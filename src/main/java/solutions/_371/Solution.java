@@ -1,13 +1,16 @@
 package solutions._371;
 
+/**
+ * 371. Sum of Two Integers
+ * 先相加而不进位 --> 异或操作
+ * 处理进位 --> 与操作
+ */
 public class Solution {
     public int getSum(int a, int b) {
         if (b == 0) {
             return a;
         }
-        int c = a ^ b;
-        int d = (a & b) << 1;
-        return getSum(c, d);
+        return getSum(a ^ b, (a & b) << 1);
     }
 
     public static void main(String[] args) {

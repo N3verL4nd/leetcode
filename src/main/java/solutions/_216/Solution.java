@@ -7,7 +7,6 @@ import java.util.List;
  * 216. Combination Sum III
  */
 class Solution {
-    private boolean[] visited;
     private List<List<Integer>> result;
     private List<Integer> cur;
 
@@ -28,7 +27,6 @@ class Solution {
     }
 
     public List<List<Integer>> combinationSum3(int k, int n) {
-        visited = new boolean[n + 1];
         result = new ArrayList<>();
         cur = new ArrayList<>();
         DFS(k, 0, n, 0);
@@ -38,7 +36,7 @@ class Solution {
 
     public static void main(String[] args) {
         Solution solution = new Solution();
-        List<List<Integer>> list = solution.combinationSum3(3, 9);
-        System.out.println(list);
+        System.out.println(solution.combinationSum3(3, 7));
+        System.out.println(solution.combinationSum3(3, 9));
     }
 }

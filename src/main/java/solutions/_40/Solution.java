@@ -10,8 +10,8 @@ import java.util.List;
 
 class Solution {
     private boolean[] visited;
-    private List<List<Integer>> result;
-    private List<Integer> cur;
+    private List<List<Integer>> result = new ArrayList<>();
+    private List<Integer> cur = new ArrayList<>();
 
     private void DFS(int[] arr, int target, int pos, int sum) {
         if (sum > target) {
@@ -42,8 +42,6 @@ class Solution {
     public List<List<Integer>> combinationSum2(int[] candidates, int target) {
         Arrays.sort(candidates);
         visited = new boolean[candidates.length];
-        result = new ArrayList<>();
-        cur = new ArrayList<>();
         DFS(candidates, target, 0, 0);
         return result;
     }

@@ -1,53 +1,43 @@
 package solutions._39;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * 39. Combination Sum
  */
 class Solution {
-    private Set<List<Integer>> set;
-    private List<Integer> cur;
+    private List<List<Integer>> result = new ArrayList<>();
+    private LinkedList<Integer> cur = new LinkedList<>();
 
-    private void DFS(int[] arr, int target, int sum) {
-        if (sum > target) {
-            return;
-        }
-        if (target == sum) {
-            ArrayList<Integer> list = new ArrayList<>(cur);
-            Collections.sort(list);
-            set.add(list);
+    private void DFS(int[] arr, int pos, int curSum, int sum) {
+        if (curSum > sum) {
             return;
         }
 
-        for (int i = 0; i < arr.length; i++) {
-            if (i != 0 && arr[i] == arr[i - 1]) {
-                continue;
-            }
+        if (curSum == sum) {
+            result.add(new ArrayList<>(cur));
+            return;
+        }
+
+        for (int i = pos; i < arr.length; i++) {
             cur.add(arr[i]);
-            DFS(arr, target, sum + arr[i]);
-            cur.remove(cur.size() - 1);
+            DFS(arr, i, curSum + arr[i], sum);
+            cur.removeLast();
         }
     }
 
     public List<List<Integer>> combinationSum(int[] candidates, int target) {
-        cur = new LinkedList<>();
-        set = new HashSet<>();
-
-        Arrays.sort(candidates);
-
-        DFS(candidates, target, 0);
-
-        List<List<Integer>> result = new ArrayList<>();
-        result.addAll(set);
+        DFS(candidates, 0, 0, target);
         return result;
     }
 
     public static void main(String[] args) {
         Solution solution = new Solution();
-        int[] arrs = {1, 2};
-        int target = 4;
-        List<List<Integer>> list = solution.combinationSum(arrs, target);
+        int[] arr = {2, 3, 6, 7};
+        int target = 7;
+        List<List<Integer>> list = solution.combinationSum(arr, target);
         System.out.println(list);
     }
 }

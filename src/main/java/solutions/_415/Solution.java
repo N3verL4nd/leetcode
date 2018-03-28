@@ -10,52 +10,28 @@ class Solution {
         char[] y = num2.toCharArray();
         int i = x.length - 1;
         int j = y.length - 1;
-        boolean flag = false;
+        int plus = 0;
         while (i >= 0 && j >= 0) {
-            int sum = (x[i] - '0') + (y[j] - '0');
-            if (flag) {
-                sum += 1;
-            }
-            if (sum >= 10) {
-                flag = true;
-                sum = sum % 10;
-            } else {
-                flag = false;
-            }
-            sb.append((char) (sum + '0'));
+            int sum = (x[i] - '0') + (y[j] - '0') + plus;
+            plus = sum / 10;
+            sb.append(sum % 10);
             i--;
             j--;
         }
         while (i >= 0) {
-            int sum = (x[i] - '0');
-            if (flag) {
-                sum += 1;
-            }
-            if (sum >= 10) {
-                flag = true;
-                sum = sum % 10;
-            } else {
-                flag = false;
-            }
-            sb.append((char) (sum + '0'));
+            int sum = (x[i] - '0') + plus;
+            plus = sum / 10;
+            sb.append(sum % 10);
             i--;
         }
         while (j >= 0) {
-            int sum = (y[j] - '0');
-            if (flag) {
-                sum += 1;
-            }
-            if (sum >= 10) {
-                flag = true;
-                sum = sum % 10;
-            } else {
-                flag = false;
-            }
-            sb.append((char) (sum + '0'));
+            int sum = (y[j] - '0') + plus;
+            plus = sum / 10;
+            sb.append(sum % 10);
             j--;
         }
-        if (flag) {
-            sb.append(('1'));
+        if (plus == 1) {
+            sb.append(1);
         }
         return sb.reverse().toString();
     }
@@ -63,5 +39,6 @@ class Solution {
     public static void main(String[] args) {
         Solution solution = new Solution();
         System.out.println(solution.addStrings("999", "1"));
+        System.out.println(solution.addStrings("408", "5"));
     }
 }
