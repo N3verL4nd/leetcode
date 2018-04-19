@@ -9,7 +9,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 class Solution {
-    private boolean[] visited;
     private List<List<Integer>> result;
     private List<Integer> cur;
     private int n;
@@ -20,24 +19,20 @@ class Solution {
             result.add(new ArrayList<>(cur));
             return;
         }
-        for (int i = pos; i <= n; i++) {
-            if (!visited[i]) {
-                visited[i] = true;
-                cur.add(i);
-                DFS(i, len + 1);
-                cur.remove(cur.size() - 1);
-                visited[i] = false;
-            }
+        // pos + 1 是为了使每个元素只使用一次
+        for (int i = pos + 1; i <= n; i++) {
+            cur.add(i);
+            DFS(i, len + 1);
+            cur.remove(cur.size() - 1);
         }
     }
 
     public List<List<Integer>> combine(int n, int k) {
-        visited = new boolean[n + 1];
         cur = new LinkedList<>();
         result = new LinkedList<>();
         this.n = n;
         this.k = k;
-        DFS(1, 0);
+        DFS(0, 0);
         return result;
     }
 

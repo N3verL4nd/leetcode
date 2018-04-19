@@ -9,17 +9,14 @@ class Solution {
             return 0;
         }
         int count = 0;
-        char[] arrs = s.toCharArray();
-        int i = arrs.length - 1;
-        while (i >= 0 && arrs[i] == ' ') {
+        char[] arr = s.toCharArray();
+        int i = arr.length - 1;
+        while (i >= 0 && arr[i] == ' ') {
             i--;
         }
-        for (; i >= 0 ; i--) {
-            if (arrs[i] != ' ') {
-                count++;
-            } else {
-                break;
-            }
+        while (i >= 0 && arr[i] != ' ') {
+            i--;
+            count++;
         }
         return count;
     }

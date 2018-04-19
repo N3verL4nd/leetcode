@@ -2,42 +2,34 @@ package solutions._153;
 
 /**
  * 153. Find Minimum in Rotated Sorted Array
+ * 数组没有重复元素
  */
 class Solution {
-    public int findMin1(int[] nums) {
-        int i;
-        for (i = 1; i < nums.length; i++) {
-            if (nums[i] < nums[i - 1]) {
-                break;
-            }
-        }
-        if (i == nums.length) {
-            return nums[0];
-        }
-        return nums[i];
-    }
 
-    public int findMin2(int[] nums) {
+    public int findMin(int... nums) {
         int left = 0;
         int right = nums.length - 1;
-        while (left < right) {
-            if (nums[right] > nums[left]) {
-                return nums[left];
-            }
+
+        // 数组是有序的
+        if (nums[right] > nums[left]) {
+            return nums[left];
+        }
+        while (left + 1 < right) {
             int mid = left + (right - left) / 2;
-            if (nums[mid] >= nums[left]) {
-                left = mid + 1;
+            if (nums[mid] > nums[left]) {
+                left = mid;
             } else {
                 right = mid;
             }
         }
+        System.out.println("left = " + left);
+        System.out.println("right = " + right);
         return nums[right];
     }
 
     public static void main(String[] args) {
         Solution solution = new Solution();
-        int[] arr = {4, 5};
-        System.out.println(solution.findMin1(arr));
-        System.out.println(solution.findMin2(arr));
+        System.out.println(solution.findMin(3, 4, 5, 1, 2));
+        System.out.println(solution.findMin(4, 5, 6, 7, 0, 1, 2));
     }
 }
