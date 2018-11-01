@@ -4,19 +4,18 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Random;
 
-/**
- * 消费者
- */
-class Consumer implements Runnable {
-    private Queue<Integer> queue;
+class ProducerConsumerPattern {
+    private int maxSize;
+    private final Queue<Integer> queue;
+    private Random random = new Random();
 
-    public Consumer(Queue<Integer> queue) {
+    public ProducerConsumerPattern(Queue<Integer> queue, int maxSize) {
+        this.maxSize = maxSize;
         this.queue = queue;
     }
 
-    @Override
-    public void run() {
-        while (true) {
+    public void consume() {
+        for (; ; ) {
             synchronized (queue) {
                 while (queue.isEmpty()) {
                     try {
@@ -36,24 +35,9 @@ class Consumer implements Runnable {
             }
         }
     }
-}
 
-/**
- * 生产者
- */
-class Producer implements Runnable {
-    private Random random = new Random();
-    private Queue<Integer> queue;
-    private int maxSize;
-
-    public Producer(Queue<Integer> queue, int maxSize) {
-        this.queue = queue;
-        this.maxSize = maxSize;
-    }
-
-    @Override
-    public void run() {
-        while (true) {
+    public void produce() {
+        for (; ; ) {
             synchronized (queue) {
                 while (queue.size() == maxSize) {
                     try {
@@ -76,16 +60,49 @@ class Producer implements Runnable {
     }
 }
 
+/**
+ * 消费者
+ */
+class Consumer implements Runnable {
+    private ProducerConsumerPattern cp;
+
+    public Consumer(ProducerConsumerPattern cp) {
+        this.cp = cp;
+    }
+
+    @Override
+    public void run() {
+        cp.consume();
+    }
+}
+
+/**
+ * 生产者
+ */
+class Producer implements Runnable {
+    private ProducerConsumerPattern cp;
+
+    public Producer(ProducerConsumerPattern cp) {
+        this.cp = cp;
+    }
+
+    @Override
+    public void run() {
+        cp.produce();
+    }
+}
+
 public class WaitNotifyImpl {
     public static void main(String[] args) {
         int maxSize = 10;
         Queue<Integer> queue = new LinkedList<>();
+        ProducerConsumerPattern cp = new ProducerConsumerPattern(queue, maxSize);
 
         for (int i = 0; i < 2; i++) {
-            new Thread(new Consumer(queue), "Consumer").start();
+            new Thread(new Consumer(cp), "Consumer").start();
         }
         for (int i = 0; i < 5; i++) {
-            new Thread(new Producer(queue, maxSize), "Producer").start();
+            new Thread(new Producer(cp), "Producer").start();
         }
     }
 }

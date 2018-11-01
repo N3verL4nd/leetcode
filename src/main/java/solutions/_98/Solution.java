@@ -10,6 +10,7 @@ class Solution {
         if (root.val > root.left.val && root.val < root.right.val) {
             return true;
         }
+        return false;
     }
 
     public static void main(String[] args) {
