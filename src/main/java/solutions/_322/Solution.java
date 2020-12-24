@@ -4,21 +4,41 @@ import java.util.Arrays;
 
 class Solution {
     public int coinChange(int[] coins, int amount) {
-        int[] dp = new int[amount + 1];
-
         if (amount == 0) {
             return 0;
         }
 
-        Arrays.sort(coins);
-
-        return 0;
+        int[] dp = new int[amount + 1];
+        for (int i = 1; i <= amount; i++) {
+            int min = Integer.MAX_VALUE;
+            for (int coin : coins) {
+                if (i - coin >= 0) {
+                    if (dp[i - coin] < min) {
+                        min = dp[i - coin] + 1;
+                    }
+                }
+                dp[i] = min;
+            }
+        }
+        System.out.println(Arrays.toString(dp));
+        if (dp[amount] == Integer.MAX_VALUE) {
+            return -1;
+        }
+        return dp[amount];
     }
 
     public static void main(String[] args) {
-        System.out.println(new Solution().coinChange(new int[]{1, 2, 5}, 11));
-        System.out.println(new Solution().coinChange(new int[]{2}, 3));
-        System.out.println(new Solution().coinChange(new int[]{1, 2147483647}, 2));
+
+        long start = System.currentTimeMillis();
+
+//        System.out.println(new Solution().coinChange(new int[]{1, 2, 5}, 20));
+//        System.out.println(new Solution().coinChange(new int[]{1, 5, 11}, 70));
+//        System.out.println(new Solution().coinChange(new int[]{2}, 3));
+//        System.out.println(new Solution().coinChange(new int[]{1}, 0));
+//        System.out.println(new Solution().coinChange(new int[]{1, 2147483647}, 2));
+        System.out.println(new Solution().coinChange(new int[]{3, 7, 405, 436}, 8839));
+
+        System.out.println("cost " + (System.currentTimeMillis() - start));
     }
 }
 
@@ -63,5 +83,7 @@ class Solution {
 链接：https://leetcode-cn.com/problems/coin-change
 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 
+[3,7,405,436]
+8839
 
  */
