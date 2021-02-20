@@ -10,7 +10,7 @@ public class MyGenerator {
     public static void main(String[] args) throws Exception {
 
         ClassPool pool = ClassPool.getDefault();
-        //创建Programmer类		
+        //创建Programmer类
         CtClass cc = pool.makeClass("JavaAssistDemo");
         //定义code方法
         CtMethod method = CtNewMethod.make("public void code(){}", cc);

@@ -11,7 +11,7 @@ public class Test {
         byte[] proxyClassFile = ProxyGenerator.generateProxyClass("proxy.test.Demo", new Class[]{Serializable.class});
 
         try {
-            Files.write(Paths.get("Demo.class"), proxyClassFile);
+            Files.write(Paths.get(Test.class.getResource(".").getFile(), "DemoProxy.class"), proxyClassFile);
         } catch (IOException e) {
             e.printStackTrace();
         }
