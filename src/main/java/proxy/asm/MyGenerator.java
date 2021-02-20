@@ -12,13 +12,9 @@ public class MyGenerator {
 
     public static void main(String[] args) throws IOException {
 
-        System.out.println();
         ClassWriter classWriter = new ClassWriter(0);
         // 通过visit方法确定类的头部信息
-        classWriter.visit(Opcodes.V1_8,
-                Opcodes.ACC_PUBLIC,
-                "AsmDemo",
-                null, "java/lang/Object", null);
+        classWriter.visit(Opcodes.V1_8, Opcodes.ACC_PUBLIC, "AsmDemo", null, "java/lang/Object", null);
 
         //创建构造函数
         MethodVisitor mv = classWriter.visitMethod(Opcodes.ACC_PUBLIC, "<init>", "()V", null, null);
@@ -30,22 +26,21 @@ public class MyGenerator {
         mv.visitEnd();
 
         // 定义code方法
-        MethodVisitor methodVisitor = classWriter.visitMethod(Opcodes.ACC_PUBLIC, "code", "()V",
-                null, null);
+        MethodVisitor methodVisitor = classWriter.visitMethod(Opcodes.ACC_PUBLIC, "code", "()V", null, null);
         methodVisitor.visitCode();
-        methodVisitor.visitFieldInsn(Opcodes.GETSTATIC, "java/lang/System", "out",
-                "Ljava/io/PrintStream;");
+        methodVisitor.visitFieldInsn(Opcodes.GETSTATIC, "java/lang/System", "out", "Ljava/io/PrintStream;");
         methodVisitor.visitLdcInsn("I'm a Programmer,Just Coding.....");
-        methodVisitor.visitMethodInsn(Opcodes.INVOKEVIRTUAL, "java/io/PrintStream", "println",
-                "(Ljava/lang/String;)V", false);
+        methodVisitor.visitMethodInsn(Opcodes.INVOKEVIRTUAL, "java/io/PrintStream", "println", "(Ljava/lang/String;)V", false);
         methodVisitor.visitInsn(Opcodes.RETURN);
         methodVisitor.visitMaxs(2, 2);
         methodVisitor.visitEnd();
         classWriter.visitEnd();
+        
+
         // 使classWriter类已经完成
         // 将classWriter转换成字节数组写到文件里面去
         byte[] data = classWriter.toByteArray();
-        File file = new File(proxy.javassist.MyGenerator.class.getResource(".").getFile());
+        File file = new File(proxy.asm.MyGenerator.class.getResource(".").getFile() + "AsmDemo.class");
         FileOutputStream fout = new FileOutputStream(file);
         fout.write(data);
         fout.close();
