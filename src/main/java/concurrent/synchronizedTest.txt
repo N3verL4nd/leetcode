@@ -1,0 +1,179 @@
+
+→ javap concurrent.SynchronizedTest
+
+Compiled from "SynchronizedTest.java"
+public class concurrent.SynchronizedTest {
+  public concurrent.SynchronizedTest();
+  public synchronized void test1();
+  public static synchronized void test2();
+  public void test3();
+  public void test4();
+  public static void main(java.lang.String[]);
+}
+
+→ javap -v concurrent.SynchronizedTest
+
+Classfile /Users/n3verl4nd/Desktop/leetcode/target/classes/concurrent/SynchronizedTest.class
+  Last modified 2021-2-22; size 833 bytes
+  MD5 checksum d0dc1769a6d9a441eaca26ea6ff77acd
+  Compiled from "SynchronizedTest.java"
+public class concurrent.SynchronizedTest
+  minor version: 0
+  major version: 52
+  flags: ACC_PUBLIC, ACC_SUPER
+Constant pool:
+   #1 = Methodref          #3.#25         // java/lang/Object."<init>":()V
+   #2 = Class              #26            // concurrent/SynchronizedTest
+   #3 = Class              #27            // java/lang/Object
+   #4 = Utf8               <init>
+   #5 = Utf8               ()V
+   #6 = Utf8               Code
+   #7 = Utf8               LineNumberTable
+   #8 = Utf8               LocalVariableTable
+   #9 = Utf8               this
+  #10 = Utf8               Lconcurrent/SynchronizedTest;
+  #11 = Utf8               test1
+  #12 = Utf8               test2
+  #13 = Utf8               test3
+  #14 = Utf8               StackMapTable
+  #15 = Class              #26            // concurrent/SynchronizedTest
+  #16 = Class              #27            // java/lang/Object
+  #17 = Class              #28            // java/lang/Throwable
+  #18 = Utf8               test4
+  #19 = Utf8               main
+  #20 = Utf8               ([Ljava/lang/String;)V
+  #21 = Utf8               args
+  #22 = Utf8               [Ljava/lang/String;
+  #23 = Utf8               SourceFile
+  #24 = Utf8               SynchronizedTest.java
+  #25 = NameAndType        #4:#5          // "<init>":()V
+  #26 = Utf8               concurrent/SynchronizedTest
+  #27 = Utf8               java/lang/Object
+  #28 = Utf8               java/lang/Throwable
+{
+  public concurrent.SynchronizedTest();
+    descriptor: ()V
+    flags: ACC_PUBLIC
+    Code:
+      stack=1, locals=1, args_size=1
+         0: aload_0
+         1: invokespecial #1                  // Method java/lang/Object."<init>":()V
+         4: return
+      LineNumberTable:
+        line 7: 0
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0       5     0  this   Lconcurrent/SynchronizedTest;
+
+  public synchronized void test1();
+    descriptor: ()V
+    flags: ACC_PUBLIC, ACC_SYNCHRONIZED
+    Code:
+      stack=0, locals=1, args_size=1
+         0: return
+      LineNumberTable:
+        line 11: 0
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0       1     0  this   Lconcurrent/SynchronizedTest;
+
+  public static synchronized void test2();
+    descriptor: ()V
+    flags: ACC_PUBLIC, ACC_STATIC, ACC_SYNCHRONIZED
+    Code:
+      stack=0, locals=0, args_size=0
+         0: return
+      LineNumberTable:
+        line 15: 0
+
+  public void test3();
+    descriptor: ()V
+    flags: ACC_PUBLIC
+    Code:
+      stack=2, locals=3, args_size=1
+         0: ldc           #2                  // class concurrent/SynchronizedTest
+         2: dup
+         3: astore_1
+         4: monitorenter
+         5: aload_1
+         6: monitorexit
+         7: goto          15
+        10: astore_2
+        11: aload_1
+        12: monitorexit
+        13: aload_2
+        14: athrow
+        15: return
+      Exception table:
+         from    to  target type
+             5     7    10   any
+            10    13    10   any
+      LineNumberTable:
+        line 18: 0
+        line 20: 5
+        line 21: 15
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0      16     0  this   Lconcurrent/SynchronizedTest;
+      StackMapTable: number_of_entries = 2
+        frame_type = 255 /* full_frame */
+          offset_delta = 10
+          locals = [ class concurrent/SynchronizedTest, class java/lang/Object ]
+          stack = [ class java/lang/Throwable ]
+        frame_type = 250 /* chop */
+          offset_delta = 4
+
+  public void test4();
+    descriptor: ()V
+    flags: ACC_PUBLIC
+    Code:
+      stack=2, locals=3, args_size=1
+         0: aload_0
+         1: dup
+         2: astore_1
+         3: monitorenter
+         4: aload_1
+         5: monitorexit
+         6: goto          14
+         9: astore_2
+        10: aload_1
+        11: monitorexit
+        12: aload_2
+        13: athrow
+        14: return
+      Exception table:
+         from    to  target type
+             4     6     9   any
+             9    12     9   any
+      LineNumberTable:
+        line 24: 0
+        line 26: 4
+        line 27: 14
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0      15     0  this   Lconcurrent/SynchronizedTest;
+      StackMapTable: number_of_entries = 2
+        frame_type = 255 /* full_frame */
+          offset_delta = 9
+          locals = [ class concurrent/SynchronizedTest, class java/lang/Object ]
+          stack = [ class java/lang/Throwable ]
+        frame_type = 250 /* chop */
+          offset_delta = 4
+
+  public static void main(java.lang.String[]);
+    descriptor: ([Ljava/lang/String;)V
+    flags: ACC_PUBLIC, ACC_STATIC
+    Code:
+      stack=0, locals=1, args_size=1
+         0: return
+      LineNumberTable:
+        line 31: 0
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0       1     0  args   [Ljava/lang/String;
+}
+SourceFile: "SynchronizedTest.java"
+
+
+synchronized 原理解析
+https://hujinyang.blog.csdn.net/article/details/82228321
