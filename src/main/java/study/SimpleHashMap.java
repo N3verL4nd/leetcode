@@ -55,7 +55,6 @@ public class SimpleHashMap<K, V> extends AbstractMap<K, V> {
             // 如果是一个新的键值，那么直接添加到这个 LinkedList 中
             buckets[index].add(node);
         }
-
         return oldValue;
     }
 
@@ -90,7 +89,9 @@ public class SimpleHashMap<K, V> extends AbstractMap<K, V> {
     public Set<Entry<K, V>> entrySet() {
         Set<Map.Entry<K, V>> set = new HashSet<>();
         for (LinkedList<Node<K, V>> bucket : buckets) {
-            if (bucket == null) continue;
+            if (bucket == null) {
+                continue;
+            }
             set.addAll(bucket);
         }
         return set;
@@ -103,7 +104,7 @@ public class SimpleHashMap<K, V> extends AbstractMap<K, V> {
      * @param <V> 值
      */
     static class Node<K, V> implements Map.Entry<K, V> {
-        private K key;
+        private final K key;
         private V value;
 
         Node(K key, V value) {
@@ -130,8 +131,9 @@ public class SimpleHashMap<K, V> extends AbstractMap<K, V> {
 
         @Override
         public boolean equals(Object o) {
-            if (o == this)
+            if (o == this) {
                 return true;
+            }
             if (o instanceof Map.Entry) {
                 Map.Entry<?, ?> e = (Map.Entry<?, ?>) o;
                 return Objects.equals(key, e.getKey()) && Objects.equals(value, e.getValue());
