@@ -49,9 +49,9 @@ class Solution {
     }
 
     public static void main(String[] args) {
-        ListUtil.show(new Solution().rotateRight(ListUtil.createList(1, 2, 3, 4, 5), 2));
-        ListUtil.show(new Solution().rotateRight(ListUtil.createList(0, 1, 2), 4));
-        ListUtil.show(new Solution().rotateRight(ListUtil.createList(0), 4));
+        ListUtil.print(new Solution().rotateRight(ListUtil.createList(1, 2, 3, 4, 5), 2));
+        ListUtil.print(new Solution().rotateRight(ListUtil.createList(0, 1, 2), 4));
+        ListUtil.print(new Solution().rotateRight(ListUtil.createList(0), 4));
     }
 }
 

@@ -39,6 +39,6 @@ class Solution {
         Solution solution = new Solution();
         ListNode list = ListUtil.createList(1, 4, 3, 2, 5, 2);
         ListNode node = solution.partition(list, 3);
-        ListUtil.show(node);
+        ListUtil.print(node);
     }
 }

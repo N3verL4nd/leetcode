@@ -42,9 +42,9 @@ class Solution {
     }
 
     public static void main(String[] args) {
-        ListUtil.show(new Solution().swapNodes(ListUtil.createList(1, 2, 3, 4, 5), 2));
-        ListUtil.show(new Solution().swapNodes(ListUtil.createList(7, 9, 6, 6, 7, 8, 3, 0, 9, 5), 5));
-        ListUtil.show(new Solution().swapNodes(ListUtil.createList(1), 1));
-        ListUtil.show(new Solution().swapNodes(ListUtil.createList(1, 2), 1));
+        ListUtil.print(new Solution().swapNodes(ListUtil.createList(1, 2, 3, 4, 5), 2));
+        ListUtil.print(new Solution().swapNodes(ListUtil.createList(7, 9, 6, 6, 7, 8, 3, 0, 9, 5), 5));
+        ListUtil.print(new Solution().swapNodes(ListUtil.createList(1), 1));
+        ListUtil.print(new Solution().swapNodes(ListUtil.createList(1, 2), 1));
     }
 }

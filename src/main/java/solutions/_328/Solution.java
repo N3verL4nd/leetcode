@@ -41,6 +41,6 @@ class Solution {
         Solution solution = new Solution();
         ListNode list = ListUtil.createList(1, 2, 3, 4, 5);
         ListNode node = solution.oddEvenList(list);
-        ListUtil.show(node);
+        ListUtil.print(node);
     }
 }

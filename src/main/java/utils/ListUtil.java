@@ -26,7 +26,7 @@ public class ListUtil {
      *
      * @param head 头结点
      */
-    public static void show(ListNode head) {
+    public static void print(ListNode head) {
         while (head != null) {
             System.out.print(head.val + " ");
             head = head.next;

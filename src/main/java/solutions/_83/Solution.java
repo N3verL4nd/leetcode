@@ -29,6 +29,6 @@ class Solution {
         Solution solution = new Solution();
         ListNode list = ListUtil.createList(arr);
         list = solution.deleteDuplicates(list);
-        ListUtil.show(list);
+        ListUtil.print(list);
     }
 }

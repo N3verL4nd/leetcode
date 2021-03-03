@@ -34,6 +34,6 @@ class Solution {
         Solution solution = new Solution();
         ListNode list = ListUtil.createList(1, 2, 2);
         ListNode node = solution.deleteDuplicates(list);
-        ListUtil.show(node);
+        ListUtil.print(node);
     }
 }

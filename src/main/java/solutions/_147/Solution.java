@@ -70,6 +70,6 @@ class Solution {
     public static void main(String[] args) {
         ListNode list = ListUtil.createList(2, 5, 1, 3, 4);
         list = new Solution().insertionSortList(list);
-        ListUtil.show(list);
+        ListUtil.print(list);
     }
 }

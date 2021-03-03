@@ -64,11 +64,11 @@ class Solution {
         ListNode l1 = ListUtil.createList(arr1);
         ListNode l2 = ListUtil.createList(arr2);
 
-        ListUtil.show(l1);
-        ListUtil.show(l2);
+        ListUtil.print(l1);
+        ListUtil.print(l2);
 
         ListNode head = solution.mergeTwoLists(l1, l2);
-        ListUtil.show(head);
+        ListUtil.print(head);
 
 
     }

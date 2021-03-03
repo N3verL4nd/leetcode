@@ -27,7 +27,7 @@ class Solution {
     }
 
     public static void main(String[] args) {
-        ListUtil.show(new Solution().middleNode(ListUtil.createList(1, 2, 3, 4, 5)));
-        ListUtil.show(new Solution().middleNode(ListUtil.createList(1, 2, 3, 4, 5, 6)));
+        ListUtil.print(new Solution().middleNode(ListUtil.createList(1, 2, 3, 4, 5)));
+        ListUtil.print(new Solution().middleNode(ListUtil.createList(1, 2, 3, 4, 5, 6)));
     }
 }
