@@ -7,11 +7,17 @@ import java.util.Queue;
 
 
 public class BinaryTree {
-    private int[] arr;
-    private int count;
+    private final char[] arr;
+    private int pos;
 
-    public BinaryTree(int[] arr) {
+    public BinaryTree(char[] arr) {
         this.arr = arr;
+    }
+
+    private void printValue(TreeNode node) {
+        if (node != null) {
+            System.out.print((char) node.val.intValue() + " ");
+        }
     }
 
 
@@ -21,11 +27,16 @@ public class BinaryTree {
      * @return 根结点
      */
     public TreeNode Create() {
-        if (count >= arr.length || arr[count] == -1) {
-            count++;// 跳过空结点
+        if (pos >= arr.length) {
             return null;
         }
-        TreeNode root = new TreeNode(arr[count++]);
+        if (arr[pos] == ',') {
+            // 跳过空结点
+            pos++;
+            return null;
+        }
+        TreeNode root = new TreeNode(arr[pos]);
+        pos++;
         root.left = Create();
         root.right = Create();
         return root;
@@ -37,11 +48,12 @@ public class BinaryTree {
      * @param root
      */
     public void preOrder(TreeNode root) {
-        if (root != null) {
-            System.out.print(root.val + " ");
-            preOrder(root.left);
-            preOrder(root.right);
+        if (root == null) {
+            return;
         }
+        printValue(root);
+        preOrder(root.left);
+        preOrder(root.right);
     }
 
     /**
@@ -50,11 +62,12 @@ public class BinaryTree {
      * @param root
      */
     public void inOrder(TreeNode root) {
-        if (root != null) {
-            inOrder(root.left);
-            System.out.print(root.val + " ");
-            inOrder(root.right);
+        if (root == null) {
+            return;
         }
+        inOrder(root.left);
+        printValue(root);
+        inOrder(root.right);
     }
 
     /**
@@ -63,11 +76,12 @@ public class BinaryTree {
      * @param root
      */
     public void postOrder(TreeNode root) {
-        if (root != null) {
-            postOrder(root.left);
-            postOrder(root.right);
-            System.out.print(root.val + " ");
+        if (root == null) {
+            return;
         }
+        postOrder(root.left);
+        postOrder(root.right);
+        printValue(root);
     }
 
     /**
@@ -75,20 +89,21 @@ public class BinaryTree {
      *
      * @param root
      */
-    public void levOrder(TreeNode root) {
-        if (root != null) {
-            TreeNode p = root;
-            Queue<TreeNode> queue = new LinkedList<>();
-            queue.add(p);
-            while (!queue.isEmpty()) {
-                p = queue.poll();
-                System.out.print(p.val + " ");
-                if (p.left != null) {
-                    queue.add(p.left);
-                }
-                if (p.right != null) {
-                    queue.add(p.right);
-                }
+    public void levelOrder(TreeNode root) {
+        if (root == null) {
+            return;
+        }
+        TreeNode p = root;
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.add(p);
+        while (!queue.isEmpty()) {
+            p = queue.poll();
+            printValue(p);
+            if (p.left != null) {
+                queue.add(p.left);
+            }
+            if (p.right != null) {
+                queue.add(p.right);
             }
         }
     }
@@ -99,14 +114,14 @@ public class BinaryTree {
      * @param root
      * @return
      */
-    public int getSize(TreeNode root) {
+    public int getLeafCount(TreeNode root) {
         if (root == null) {
             return 0;
         }
         if (root.left == null && root.right == null) {
             return 1;
         } else {
-            return getSize(root.left) + getSize(root.right);
+            return getLeafCount(root.left) + getLeafCount(root.right);
         }
     }
 
@@ -122,11 +137,11 @@ public class BinaryTree {
         }
         int leftHeight = getHeight(root.left);
         int rightHeight = getHeight(root.right);
-        return (leftHeight > rightHeight) ? (leftHeight + 1) : (rightHeight + 1);
+        return Math.max(leftHeight + 1, rightHeight + 1);
     }
 
     public static void main(String[] args) {
-        int[] str = {'A', 'B', 'C', ',', ',', 'D', 'E', ',', 'G', ',', ',', 'F', ',', ',', ','};
+        char[] str = {'A', 'B', 'C', ',', ',', 'D', 'E', ',', 'G', ',', ',', 'F', ',', ',', ','};
         BinaryTree binaryTree = new BinaryTree(str);
         TreeNode root = binaryTree.Create();
         System.out.println("先序遍历：");
@@ -139,9 +154,9 @@ public class BinaryTree {
         binaryTree.postOrder(root);
 
         System.out.println("\n层次遍历：");
-        binaryTree.levOrder(root);
+        binaryTree.levelOrder(root);
 
-        System.out.println("\n二叉树叶子结点数：" + binaryTree.getSize(root));
+        System.out.println("\n二叉树叶子结点数：" + binaryTree.getLeafCount(root));
         System.out.println("二叉树高度：" + binaryTree.getHeight(root));
     }
 }

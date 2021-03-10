@@ -1,6 +1,7 @@
 package solutions._102;
 
 import utils.TreeNode;
+import utils.TreeUtil;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -36,18 +37,21 @@ class Solution {
     }
 
     public static void main(String[] args) {
-        TreeNode node1 = new TreeNode(3);
+        /*TreeNode root = new TreeNode(3);
         TreeNode node2 = new TreeNode(9);
         TreeNode node3 = new TreeNode(20);
         TreeNode node4 = new TreeNode(15);
         TreeNode node5 = new TreeNode(7);
 
-        node1.left = node2;
-        node1.right = node3;
+        root.left = node2;
+        root.right = node3;
         node3.left = node4;
-        node3.right = node5;
+        node3.right = node5;*/
+
+        TreeNode root = TreeUtil.createTree(3, 9, 15, -1, -1, 7, -1, -1, 20, -1, -1, -1);
+
 
         Solution solution = new Solution();
-        System.out.println(solution.levelOrder(node1));
+        System.out.println(solution.levelOrder(root));
     }
 }

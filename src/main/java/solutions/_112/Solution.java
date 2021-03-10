@@ -66,7 +66,7 @@ class Solution {
     }
 
     public static void main(String[] args) {
-        int[] arr = {5, 4, 11, 7, -1, -1, 2, -1, -1, -1, 8, 13, -1, -1, 4, -1, 1, -1, -1};
+        Integer[] arr = {5, 4, 11, 7, -1, -1, 2, -1, -1, -1, 8, 13, -1, -1, 4, -1, 1, -1, -1};
         TreeNode root = TreeUtil.createTree(arr);
 //        System.out.println(new Solution().hasPathSum(root, 22));
         System.out.println(new Solution().hasPathSumBFS(root, 22));

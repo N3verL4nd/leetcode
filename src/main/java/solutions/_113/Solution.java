@@ -44,12 +44,4 @@ class Solution {
         DFS(root, 0, sum);
         return result;
     }
-
-    public static void main(String[] args) {
-        int[] arr = {5, 4, 11, 7, -1, -1, 2, -1, -1, -1, 8, 13, -1, -1, 4, 5, -1, -1, 1, -1, -1};
-        BinaryTree binaryTree = new BinaryTree(arr);
-        TreeNode root = binaryTree.Create();
-        //binaryTree.preOrder(root);
-        System.out.println(new Solution().pathSum(root, 22));
-    }
 }

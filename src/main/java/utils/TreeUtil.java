@@ -5,20 +5,25 @@ import java.util.Queue;
 
 
 public class TreeUtil {
-    private static int count;
+    private static int pos;
 
     /**
-     * 构建二叉树(,代表空结点)
+     * 构建二叉树(-1代表空结点)
      *
      * @param arr 结点数组
      * @return 根结点
      */
-    public static TreeNode createTree(int... arr) {
-        if (count >= arr.length || arr[count] == -1) {
-            count++;// 跳过空结点
+    public static TreeNode createTree(Integer... arr) {
+        if (pos >= arr.length) {
             return null;
         }
-        TreeNode root = new TreeNode(arr[count++]);
+        if (arr[pos] == null || arr[pos] == -1) {
+            pos++;
+            return null;
+        }
+
+        TreeNode root = new TreeNode(arr[pos]);
+        pos++;
         root.left = createTree(arr);
         root.right = createTree(arr);
         return root;
@@ -118,8 +123,15 @@ public class TreeUtil {
         return (leftHeight > rightHeight) ? (leftHeight + 1) : (rightHeight + 1);
     }
 
+    /**
+     * 重置 pos
+     */
+    public static void reset() {
+        pos = 0;
+    }
+
     public static void main(String[] args) {
-        int[] arr = {5, 4, 11, 7, -1, -1, 2, -1, -1, -1, 8, 13, -1, -1, 4, 5, -1, -1, 1, -1, -1};
+        Integer[] arr = {5, 4, 11, 7, -1, -1, 2, -1, -1, -1, 8, 13, -1, -1, 4, 5, -1, -1, 1, -1, -1};
         TreeNode root = createTree(arr);
         System.out.println("先序遍历：");
         preOrder(root);

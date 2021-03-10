@@ -1,6 +1,5 @@
 package solutions._257;
 
-import study.BinaryTree;
 import utils.TreeNode;
 
 import java.util.Iterator;
@@ -58,14 +57,5 @@ class Solution {
     public List<String> binaryTreePaths(TreeNode root) {
         DFS(root);
         return result;
-    }
-
-    public static void main(String[] args) {
-        int[] arr = {1, 2, -1, 5, -1, -1, 3, -1, -1};
-        BinaryTree binaryTree = new BinaryTree(arr);
-        TreeNode root = binaryTree.Create();
-//        binaryTree.preOrder(root);
-        List<String> list = new Solution().binaryTreePaths(root);
-        System.out.println(list);
     }
 }

@@ -1,17 +1,10 @@
 package solutions._104;
 
+import utils.TreeNode;
+
 /**
  * 104. Maximum Depth of Binary Tree
  */
-class TreeNode {
-    int val;
-    TreeNode left;
-    TreeNode right;
-
-    TreeNode(int x) {
-        val = x;
-    }
-}
 
 public class Solution {
     public int maxDepth(TreeNode root) {

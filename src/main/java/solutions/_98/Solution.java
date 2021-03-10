@@ -1,6 +1,8 @@
 package solutions._98;
 
 
+import utils.TreeNode;
+
 class Solution {
     public boolean isValidBST(TreeNode root) {
         if (root != null) {
