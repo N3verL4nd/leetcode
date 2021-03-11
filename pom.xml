@@ -33,10 +33,11 @@
         </dependency>
 
         <dependency>
-            <groupId>javassist</groupId>
+            <groupId>org.javassist</groupId>
             <artifactId>javassist</artifactId>
-            <version>3.23.1-GA</version>
+            <version>3.27.0-GA</version>
         </dependency>
+
 
         <dependency>
             <groupId>asm</groupId>
