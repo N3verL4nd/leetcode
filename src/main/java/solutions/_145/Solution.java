@@ -3,23 +3,12 @@ package solutions._145;
 import utils.TreeNode;
 import utils.TreeUtil;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Definition for a binary tree node.
- * public class TreeNode {
- * int val;
- * TreeNode left;
- * TreeNode right;
- * TreeNode() {}
- * TreeNode(int val) { this.val = val; }
- * TreeNode(int val, TreeNode left, TreeNode right) {
- * this.val = val;
- * this.left = left;
- * this.right = right;
- * }
- * }
+ * 二叉树后续遍历
  */
 class Solution {
 
@@ -37,12 +26,36 @@ class Solution {
         }
         return result;
     }
-    
+
     public List<Integer> postorderTraversal(TreeNode root) {
         if (root != null) {
             postorderTraversal(root.left);
             postorderTraversal(root.right);
             result.add(root.val);
+        }
+        return result;
+    }
+
+    public List<Integer> postorderTraversalBt(TreeNode root) {
+        List<Integer> result = new ArrayList<>();
+        if (root == null) {
+            return result;
+        }
+        LinkedList<TreeNode> leftStack = new LinkedList<>();
+        LinkedList<TreeNode> rightStack = new LinkedList<>();
+        leftStack.push(root);
+        while (!leftStack.isEmpty()) {
+            root = leftStack.pop();
+            rightStack.push(root);
+            if (root.left != null) {
+                leftStack.push(root.left);
+            }
+            if (root.right != null) {
+                leftStack.push(root.right);
+            }
+        }
+        while (!rightStack.isEmpty()) {
+            result.add(rightStack.pop().val);
         }
         return result;
     }

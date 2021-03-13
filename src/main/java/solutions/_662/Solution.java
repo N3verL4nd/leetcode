@@ -22,12 +22,21 @@ class Solution {
             return 0;
         }
         LinkedList<TreeNode> queue = new LinkedList<>();
+        root.val = 1;
         queue.add(root);
         while (!queue.isEmpty()) {
             int size = queue.size();
+            result = Math.max(result, queue.peekLast().val - queue.peekFirst().val + 1);
             for (int i = 0; i < size; i++) {
                 TreeNode poll = queue.poll();
-
+                if (poll.left != null) {
+                    poll.left.val = poll.val * 2;
+                    queue.offer(poll.left);
+                }
+                if (poll.right != null) {
+                    poll.right.val = poll.val * 2 + 1;
+                    queue.offer(poll.right);
+                }
             }
         }
         return result;
@@ -35,10 +44,14 @@ class Solution {
 
 
     public static void main(String[] args) {
-//        System.out.println(new Solution().widthOfBinaryTree(TreeUtil.createTree(1, 3, 5, null, null, 3, null, null, 2, null, 9, null, null, null)));
-//        System.out.println(new Solution().widthOfBinaryTree(TreeUtil.createTree(1, 3, 5, null, null, 3, null, null)));
-//        System.out.println(new Solution().widthOfBinaryTree(TreeUtil.createTree(1, 3, 5, null, null, null, 2, null, null)));
+        System.out.println(new Solution().widthOfBinaryTree(TreeUtil.createTree(1, 3, 5, null, null, 3, null, null, 2, null, 9, null, null, null)));
+        TreeUtil.reset();
+        System.out.println(new Solution().widthOfBinaryTree(TreeUtil.createTree(1, 3, 5, null, null, 3, null, null)));
+        TreeUtil.reset();
+        System.out.println(new Solution().widthOfBinaryTree(TreeUtil.createTree(1, 3, 5, null, null, null, 2, null, null)));
+        TreeUtil.reset();
         System.out.println(new Solution().widthOfBinaryTree(TreeUtil.createTree(1, 3, 5, 6, null, null, null, null, 2, null, 9, null, 7, null, null)));
+        TreeUtil.reset();
     }
 }
 

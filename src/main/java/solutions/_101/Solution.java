@@ -3,7 +3,9 @@ package solutions._101;
 import utils.TreeNode;
 import utils.TreeUtil;
 
+import java.util.LinkedList;
 import java.util.Objects;
+import java.util.Queue;
 
 /**
  * Definition for a binary tree node.
@@ -28,6 +30,7 @@ class Solution {
         return isMirror(root.left, root.right);
     }
 
+
     private boolean isMirror(TreeNode left, TreeNode right) {
         if (left == null && right == null) {
             return true;
@@ -37,6 +40,28 @@ class Solution {
         }
         return Objects.equals(left.val, right.val) && isMirror(left.left, right.right) && isMirror(left.right, right.left);
     }
+
+    public boolean check(TreeNode u, TreeNode v) {
+        Queue<TreeNode> q = new LinkedList<>();
+        q.offer(u);
+        q.offer(v);
+        while (!q.isEmpty()) {
+            u = q.poll();
+            v = q.poll();
+            if (u == null && v == null) {
+                continue;
+            }
+            if ((u == null || v == null) || (u.val != v.val)) {
+                return false;
+            }
+            q.offer(u.left);
+            q.offer(v.right);
+            q.offer(u.right);
+            q.offer(v.left);
+        }
+        return true;
+    }
+
 
     public static void main(String[] args) {
         TreeNode tree = TreeUtil.createTree(1, 2, 3, null, null, 4, null, null, 2, 4, null, null, 3, null, null);
