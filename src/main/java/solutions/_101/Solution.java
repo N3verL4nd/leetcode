@@ -41,27 +41,27 @@ class Solution {
         return Objects.equals(left.val, right.val) && isMirror(left.left, right.right) && isMirror(left.right, right.left);
     }
 
-    public boolean check(TreeNode u, TreeNode v) {
-        Queue<TreeNode> q = new LinkedList<>();
-        q.offer(u);
-        q.offer(v);
-        while (!q.isEmpty()) {
-            u = q.poll();
-            v = q.poll();
-            if (u == null && v == null) {
+
+    private boolean isMirror2(TreeNode left, TreeNode right) {
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(left);
+        queue.offer(right);
+        while (!queue.isEmpty()) {
+            left = queue.poll();
+            right = queue.poll();
+            if (left == null && right == null) {
                 continue;
             }
-            if ((u == null || v == null) || (u.val != v.val)) {
+            if (left == null || right == null || left.val != right.val) {
                 return false;
             }
-            q.offer(u.left);
-            q.offer(v.right);
-            q.offer(u.right);
-            q.offer(v.left);
+            queue.offer(left.left);
+            queue.offer(right.right);
+            queue.offer(left.right);
+            queue.offer(right.left);
         }
         return true;
     }
-
 
     public static void main(String[] args) {
         TreeNode tree = TreeUtil.createTree(1, 2, 3, null, null, 4, null, null, 2, 4, null, null, 3, null, null);
