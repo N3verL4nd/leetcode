@@ -16,7 +16,7 @@ public class BinaryTree {
 
     private void printValue(TreeNode node) {
         if (node != null) {
-            System.out.print((char) node.val.intValue() + " ");
+            System.out.print((char) node.val + " ");
         }
     }
 
