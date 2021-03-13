@@ -43,7 +43,7 @@ public class BinaryTree {
     }
 
     /**
-     * 先序遍历
+     * 先序遍历-递归
      *
      * @param root
      */
@@ -57,7 +57,26 @@ public class BinaryTree {
     }
 
     /**
-     * 中序遍历
+     * 先序遍历-非递归
+     *
+     * @param root
+     */
+    public void preorderTraversal(TreeNode root) {
+        LinkedList<TreeNode> stack = new LinkedList<>();
+        while (root != null || !stack.isEmpty()) {
+            if (root != null) {
+                printValue(root);
+                stack.push(root);
+                root = root.left;
+            } else {
+                root = stack.pop();
+                root = root.right;
+            }
+        }
+    }
+
+    /**
+     * 中序遍历-递归
      *
      * @param root
      */
@@ -68,6 +87,26 @@ public class BinaryTree {
         inOrder(root.left);
         printValue(root);
         inOrder(root.right);
+    }
+
+    /**
+     * 中序遍历-非递归
+     *
+     * @param root
+     */
+    public void inorderTraversal(TreeNode root) {
+        LinkedList<TreeNode> stack = new LinkedList<>();
+
+        while (root != null || !stack.isEmpty()) {
+            if (root != null) {
+                stack.push(root);
+                root = root.left;
+            } else {
+                root = stack.pop();
+                printValue(root);
+                root = root.right;
+            }
+        }
     }
 
     /**
@@ -82,6 +121,10 @@ public class BinaryTree {
         postOrder(root.left);
         postOrder(root.right);
         printValue(root);
+    }
+
+    public void postorderTraversal(TreeNode root) {
+
     }
 
     /**
@@ -146,12 +189,17 @@ public class BinaryTree {
         TreeNode root = binaryTree.Create();
         System.out.println("先序遍历：");
         binaryTree.preOrder(root);
-
+        System.out.println();
+        binaryTree.preorderTraversal(root);
         System.out.println("\n中序遍历：");
         binaryTree.inOrder(root);
+        System.out.println();
+        binaryTree.inorderTraversal(root);
 
         System.out.println("\n后序遍历：");
         binaryTree.postOrder(root);
+        System.out.println();
+        binaryTree.postorderTraversal(root);
 
         System.out.println("\n层次遍历：");
         binaryTree.levelOrder(root);

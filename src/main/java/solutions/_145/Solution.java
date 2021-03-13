@@ -37,8 +37,7 @@ class Solution {
         }
         return result;
     }
-
-
+    
     public List<Integer> postorderTraversal(TreeNode root) {
         if (root != null) {
             postorderTraversal(root.left);
