@@ -124,7 +124,25 @@ public class BinaryTree {
     }
 
     public void postorderTraversal(TreeNode root) {
-
+        if (root == null) {
+            return;
+        }
+        LinkedList<TreeNode> leftStack = new LinkedList<>();
+        LinkedList<TreeNode> rightStack = new LinkedList<>();
+        leftStack.push(root);
+        while (!leftStack.isEmpty()) {
+            root = leftStack.pop();
+            rightStack.push(root);
+            if (root.left != null) {
+                leftStack.push(root.left);
+            }
+            if (root.right != null) {
+                leftStack.push(root.right);
+            }
+        }
+        while (!rightStack.isEmpty()) {
+            printValue(rightStack.pop());
+        }
     }
 
     /**
