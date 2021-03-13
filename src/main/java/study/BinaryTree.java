@@ -201,6 +201,29 @@ public class BinaryTree {
         return Math.max(leftHeight + 1, rightHeight + 1);
     }
 
+    public int getDepth(TreeNode root) {
+        int depth = 0;
+        if (root == null) {
+            return depth;
+        }
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(root);
+        while (!queue.isEmpty()) {
+            depth++;
+            int size = queue.size();
+            for (int i = 0; i < size; i++) {
+                root = queue.poll();
+                if (root.left != null) {
+                    queue.offer(root.left);
+                }
+                if (root.right != null) {
+                    queue.offer(root.right);
+                }
+            }
+        }
+        return depth;
+    }
+
     public static void main(String[] args) {
         char[] str = {'A', 'B', 'C', ',', ',', 'D', 'E', ',', 'G', ',', ',', 'F', ',', ',', ','};
         BinaryTree binaryTree = new BinaryTree(str);
@@ -224,5 +247,6 @@ public class BinaryTree {
 
         System.out.println("\n二叉树叶子结点数：" + binaryTree.getLeafCount(root));
         System.out.println("二叉树高度：" + binaryTree.getHeight(root));
+        System.out.println("二叉树高度：" + binaryTree.getDepth(root));
     }
 }
