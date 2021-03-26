@@ -131,6 +131,7 @@ public class HashMap<K, V>
 
     /**
      * The default initial capacity - MUST be a power of two.
+     * 默认初始容量，必须是2的次幂的形式
      */
     static final int DEFAULT_INITIAL_CAPACITY = 16;
 
@@ -138,11 +139,13 @@ public class HashMap<K, V>
      * The maximum capacity, used if a higher value is implicitly specified
      * by either of the constructors with arguments.
      * MUST be a power of two <= 1<<30.
+     * 最大的容量
      */
     static final int MAXIMUM_CAPACITY = 1 << 30;
 
     /**
      * The load factor used when none specified in constructor.
+     * 默认的负载因子
      */
     static final float DEFAULT_LOAD_FACTOR = 0.75f;
 
@@ -153,11 +156,13 @@ public class HashMap<K, V>
 
     /**
      * The number of key-value mappings contained in this map.
+     * table 元素个数
      */
     transient int size;
 
     /**
      * The next size value at which to resize (capacity * load factor).
+     * 超过 threshold 个元素执行 resize 方法
      *
      * @serial
      */
@@ -165,6 +170,7 @@ public class HashMap<K, V>
 
     /**
      * The load factor for the hash table.
+     * 负载因子
      *
      * @serial
      */
@@ -245,8 +251,7 @@ public class HashMap<K, V>
      * @throws NullPointerException if the specified map is null
      */
     public HashMap(Map<? extends K, ? extends V> m) {
-        this(Math.max((int) (m.size() / DEFAULT_LOAD_FACTOR) + 1,
-                DEFAULT_INITIAL_CAPACITY), DEFAULT_LOAD_FACTOR);
+        this(Math.max((int) (m.size() / DEFAULT_LOAD_FACTOR) + 1, DEFAULT_INITIAL_CAPACITY), DEFAULT_LOAD_FACTOR);
         putAllForCreate(m);
     }
 
@@ -327,9 +332,7 @@ public class HashMap<K, V>
             return getForNullKey();
         }
         int hash = hash(key.hashCode());
-        for (Entry<K, V> e = table[indexFor(hash, table.length)];
-             e != null;
-             e = e.next) {
+        for (Entry<K, V> e = table[indexFor(hash, table.length)]; e != null; e = e.next) {
             Object k;
             if (e.hash == hash && ((k = e.key) == key || key.equals(k))) {
                 return e.value;
@@ -374,12 +377,9 @@ public class HashMap<K, V>
      */
     final Entry<K, V> getEntry(Object key) {
         int hash = (key == null) ? 0 : hash(key.hashCode());
-        for (Entry<K, V> e = table[indexFor(hash, table.length)];
-             e != null;
-             e = e.next) {
+        for (Entry<K, V> e = table[indexFor(hash, table.length)]; e != null; e = e.next) {
             Object k;
-            if (e.hash == hash &&
-                    ((k = e.key) == key || (key != null && key.equals(k)))) {
+            if (e.hash == hash && ((k = e.key) == key || (key != null && key.equals(k)))) {
                 return e;
             }
         }
@@ -422,7 +422,7 @@ public class HashMap<K, V>
     }
 
     /**
-     * Offloaded version of put for null keys
+     * key 为 null 放置在 table[0]
      */
     private V putForNullKey(V value) {
         for (Entry<K, V> e = table[0]; e != null; e = e.next) {
