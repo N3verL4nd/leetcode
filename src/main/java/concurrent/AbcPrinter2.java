@@ -4,7 +4,7 @@ import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-public class AbcPrinter {
+public class AbcPrinter2 {
     private final Lock lock = new ReentrantLock();
 
     private final Condition con1 = lock.newCondition();
@@ -62,25 +62,19 @@ public class AbcPrinter {
     }
 
     public static void main(String[] args) {
-        AbcPrinter p = new AbcPrinter();
+        AbcPrinter2 p = new AbcPrinter2();
         new Thread(() -> {
-            for (int i = 0; i < 5; i++) {
-                p.process1();
-            }
+            p.process1();
         }).start();
 
 
         new Thread(() -> {
-            for (int i = 0; i < 5; i++) {
-                p.process2();
-            }
+            p.process2();
         }).start();
 
 
         new Thread(() -> {
-            for (int i = 0; i < 5; i++) {
-                p.process3();
-            }
+            p.process3();
         }).start();
     }
 }

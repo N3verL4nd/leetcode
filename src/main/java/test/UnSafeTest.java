@@ -25,7 +25,7 @@ public class UnSafeTest {
         assert unsafe != null;
         long ageOffset = unsafe.objectFieldOffset(Person.class.getDeclaredField("age"));
         Person person = new Person(28, "lgh");
-
+        System.out.println("ageOffset = " + ageOffset);
         int age = unsafe.getInt(person, ageOffset);
         System.out.println(age);
     }
