@@ -1,13 +1,15 @@
 package solutions._3;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 /**
  * 3. Longest Substring Without Repeating Characters
  */
 class Solution {
-    public int lengthOfLongestSubstring(String s) {
+    public int lengthOfLongestSubstring1(String s) {
         Set<Character> set = new HashSet<>(s.length());
         char[] chars = s.toCharArray();
         int max = 0;
@@ -28,14 +30,26 @@ class Solution {
         return max;
     }
 
+    public int lengthOfLongestSubstring(String s) {
+        if (s.length() == 0) {
+            return 0;
+        }
+        HashMap<Character, Integer> map = new HashMap<Character, Integer>();
+        int max = 0;
+        int left = 0;
+        for (int i = 0; i < s.length(); i++) {
+            if (map.containsKey(s.charAt(i))) {
+                left = Math.max(left, map.get(s.charAt(i)) + 1);
+            }
+            map.put(s.charAt(i), i);
+            max = Math.max(max, i - left + 1);
+        }
+        return max;
+    }
+
     public static void main(String[] args) {
         Solution solution = new Solution();
-        System.out.println(solution.lengthOfLongestSubstring("abcabcbb"));
-        System.out.println(solution.lengthOfLongestSubstring("bbbbb"));
-        System.out.println(solution.lengthOfLongestSubstring("pwwkew"));
-        System.out.println(solution.lengthOfLongestSubstring("a"));
-        System.out.println(solution.lengthOfLongestSubstring("au"));
-        System.out.println(solution.lengthOfLongestSubstring("jbpnbwwd"));
+        System.out.println(solution.lengthOfLongestSubstring("abba"));
     }
 }
 
