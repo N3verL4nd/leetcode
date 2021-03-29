@@ -28,3 +28,18 @@ class Solution {
     }
 }
 
+/*
+
+    left 维护当前滑动窗口的最左节点
+
+
+
+    对于 "abba"
+
+    i = 0 map[a] = 0 left = 0 max = 1
+    i = 1 map[b] = 1 left = 0 max = 2
+    i = 2 left = 2 map[b] = 2 max = 2
+    i = 3 left = max(2, 1)=2 max = 2
+
+ */
+
