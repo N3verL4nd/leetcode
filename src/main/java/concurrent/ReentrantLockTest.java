@@ -8,36 +8,33 @@ import java.util.concurrent.locks.ReentrantLock;
  * @date 2021/3/26
  */
 public class ReentrantLockTest {
+    private static int threadCount = 5;
+    private static int sleepSeconds = 5;
+
     public static void main(String[] args) {
         ReentrantLock lock = new ReentrantLock(true);
 
-        new Thread(() -> {
-            lock.lock();
+        for (int i = 0; i < threadCount; i++) {
+            int finalI = i;
+            new Thread(() -> {
+                lock.lock();
+                try {
+                    System.out.println("lock" + finalI);
+                    TimeUnit.SECONDS.sleep(sleepSeconds);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } finally {
+                    lock.unlock();
+                }
+
+            }, "thread-" + i).start();
 
             try {
-                System.out.println("lock1");
-                TimeUnit.SECONDS.sleep(2000);
+                TimeUnit.MILLISECONDS.sleep(50);
             } catch (InterruptedException e) {
                 e.printStackTrace();
-            } finally {
-                lock.unlock();
             }
-
-        }, "thread-1").start();
-
-        new Thread(() -> {
-            lock.lock();
-
-            try {
-                System.out.println("lock2");
-                TimeUnit.SECONDS.sleep(2000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } finally {
-                lock.unlock();
-            }
-
-        }, "thread-2").start();
+        }
 
         try {
             TimeUnit.SECONDS.sleep(1);
@@ -46,10 +43,8 @@ public class ReentrantLockTest {
         }
 
         lock.lock();
-
-
         try {
-            System.out.println("lock3");
+            System.out.println("lock main");
             TimeUnit.SECONDS.sleep(20);
         } catch (InterruptedException e) {
             e.printStackTrace();
