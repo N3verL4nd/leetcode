@@ -30,11 +30,11 @@ public class FinalTest {
         assert unsafe != null;
         long ageOffset = unsafe.objectFieldOffset(FinalClass.class.getDeclaredField("age"));
         FinalClass finalClass = new FinalClass();
-        System.out.println(unsafe.getInt(finalClass, ageOffset));
-        System.out.println(finalClass.age);
+        System.out.println(unsafe.getInt(finalClass, ageOffset)); // 100
+        System.out.println(finalClass.age); // 100
 
         unsafe.putInt(finalClass, ageOffset, 200);
-        System.out.println(finalClass.age);
-        System.out.println(unsafe.getInt(finalClass, ageOffset));
+        System.out.println(finalClass.age); // 100
+        System.out.println(unsafe.getInt(finalClass, ageOffset)); // 200
     }
 }
