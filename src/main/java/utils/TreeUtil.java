@@ -8,7 +8,7 @@ public class TreeUtil {
     private static int pos;
 
     /**
-     * 构建二叉树(-1代表空结点)
+     * 前序遍历构建二叉树(-1代表空结点)
      *
      * @param arr 结点数组
      * @return 根结点
@@ -26,6 +26,44 @@ public class TreeUtil {
         pos++;
         root.left = createTree(arr);
         root.right = createTree(arr);
+        return root;
+    }
+
+    public static TreeNode createTreeLevelOrder(Integer... arr) {
+        if (arr == null || arr.length == 0) {
+            return null;
+        }
+        Queue<TreeNode> queue = new LinkedList<>();
+        pos = 0;
+        TreeNode root = new TreeNode(arr[pos]);
+        pos++;
+        queue.add(root);
+
+        while (!queue.isEmpty()) {
+            TreeNode poll = queue.poll();
+
+            if (pos >= arr.length) {
+                break;
+            }
+
+            if (arr[pos] != null) {
+                poll.left = new TreeNode(arr[pos]);
+                queue.offer(poll.left);
+            } else {
+                poll.left = null;
+            }
+
+            pos++;
+
+            if (arr[pos] != null) {
+                poll.right = new TreeNode(arr[pos]);
+                queue.offer(poll.right);
+            } else {
+                poll.right = null;
+            }
+
+            pos++;
+        }
         return root;
     }
 
@@ -147,5 +185,9 @@ public class TreeUtil {
 
         System.out.println("\n二叉树叶子结点数：" + getSize(root));
         System.out.println("二叉树高度：" + getHeight(root));
+
+
+        TreeNode treeLevelOrder = createTreeLevelOrder(10, 5, -3, 3, 2, null, 11, 3, -2, null, 1);
+        levOrder(treeLevelOrder);
     }
 }
