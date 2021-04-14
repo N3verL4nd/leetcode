@@ -23,7 +23,7 @@
  * questions.
  */
 
-package study.map;
+package study.map._7;
 
 import java.util.*;
 
