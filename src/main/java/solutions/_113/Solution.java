@@ -1,6 +1,5 @@
 package solutions._113;
 
-import study.BinaryTree;
 import utils.TreeNode;
 
 import java.util.ArrayList;
@@ -41,6 +40,9 @@ class Solution {
     }
 
     public List<List<Integer>> pathSum(TreeNode root, int sum) {
+        if (root == null) {
+            return new ArrayList<>();
+        }
         DFS(root, 0, sum);
         return result;
     }

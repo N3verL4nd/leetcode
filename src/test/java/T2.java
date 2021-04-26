@@ -1,5 +1,7 @@
 import org.junit.Test;
 
+import java.util.Date;
+
 /**
  * @author liguanghui02
  * @date 2021/3/19
@@ -23,5 +25,13 @@ public class T2 {
         System.out.println(tableSizeFor(15));
         System.out.println(tableSizeFor(16));
         System.out.println(tableSizeFor(17));
+    }
+
+    @Test
+    public void test2() {
+        ThreadLocal<Date> dateThreadLocal1 = ThreadLocal.withInitial(Date::new);
+        ThreadLocal<Date> dateThreadLocal2 = ThreadLocal.withInitial(Date::new);
+        System.out.println(dateThreadLocal1.get());
+        System.out.println(dateThreadLocal2.get());
     }
 }
