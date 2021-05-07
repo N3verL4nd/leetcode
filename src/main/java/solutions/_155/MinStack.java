@@ -6,38 +6,42 @@ import java.util.LinkedList;
  * 155. Min Stack
  */
 class MinStackOld {
-    private LinkedList<Integer> list;
-    private int min;
+    private LinkedList<Integer> stack;
+    private LinkedList<Integer> minStack;
+    private Integer curMin;
 
-    /** initialize your data structure here. */
+
+    /**
+     * initialize your data structure here.
+     */
     public MinStackOld() {
-        list = new LinkedList<>();
-        min = Integer.MAX_VALUE;
+        stack = new LinkedList<>();
+        minStack = new LinkedList<>();
     }
-    
-    public void push(int x) {
-        list.push(x);
-        if (x < min) {
-            min = x;
+
+    public void push(int val) {
+        stack.push(val);
+        if (curMin == null) {
+            curMin = val;
         }
+        if (val < curMin) {
+            curMin = val;
+        }
+        minStack.push(curMin);
     }
-    
+
     public void pop() {
-        list.pop();
-        min = Integer.MAX_VALUE;
-        for (int x : list) {
-            if (x < min) {
-                min = x;
-            }
-        }
+        stack.pop();
+        minStack.pop();
+        curMin = minStack.peek();
     }
-    
+
     public int top() {
-        return list.peek();
+        return stack.peek();
     }
-    
+
     public int getMin() {
-        return min;
+        return minStack.peek();
     }
 }
 
@@ -54,7 +58,9 @@ public class MinStack {
     private LinkedList<Integer> list;
     private int min;
 
-    /** initialize your data structure here. */
+    /**
+     * initialize your data structure here.
+     */
     public MinStack() {
         list = new LinkedList<>();
         min = Integer.MAX_VALUE;
