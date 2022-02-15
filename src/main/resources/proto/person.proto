@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+option java_outer_classname = "PersonModel";
+message Person{
+  message Location{
+    string placeName = 1;
+    uint64 placeId = 2;
+  }
+  enum Gender{
+    man = 0;
+    woman = 1;
+  }
+  string name = 1;
+  int32 age = 2;
+  Gender gender = 3;
+  float height = 4;
+  double weight = 5;
+  Location location = 6;
+}
