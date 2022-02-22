@@ -156,6 +156,8 @@ public class ThreadPoolExecutor extends AbstractExecutorService {
 
     /**
      * 线程封装
+     * 根据 Worker 的锁来判断是否是闲置线程，是否可以被强制中断。
+     * 可以获取锁：Worker 处于闲置状态。
      */
     private final class Worker extends AbstractQueuedSynchronizer implements Runnable {
         private static final long serialVersionUID = 6138294804551838833L;
@@ -248,9 +250,13 @@ public class ThreadPoolExecutor extends AbstractExecutorService {
             return isHeldExclusively();
         }
 
+        /**
+         * 中断所有线程
+         */
         void interruptIfStarted() {
             Thread t;
             // Worker无论是否被持有锁，只要还没被中断，那就中断Worker
+            // state 只有 -1、0、1三种状态
             if (getState() >= 0 && (t = thread) != null && !t.isInterrupted()) {
                 try {
                     // 强行中断Worker的执行
@@ -364,7 +370,10 @@ public class ThreadPoolExecutor extends AbstractExecutorService {
         try {
             for (Worker w : workers) {
                 Thread t = w.thread;
-                // Worker中的线程没有被打断并且Worker可以获取锁，这里Worker能获取锁说明Worker是个闲置Worker，在阻塞队列里拿数据一直被阻塞，没有数据进来。如果没有获取到Worker锁，说明Worker还在执行任务，不进行中断(shutdown方法不会中断正在执行的任务)
+                // Worker中的线程没有被打断并且Worker可以获取锁
+                // 这里Worker能获取锁说明Worker是个闲置Worker
+                // 在阻塞队列里拿数据一直被阻塞，没有数据进来
+                // 如果没有获取到Worker锁，说明Worker还在执行任务，不进行中断(shutdown方法不会中断正在执行的任务)
                 if (!t.isInterrupted() && w.tryLock()) {
                     try {
                         // 中断Worker线程
@@ -604,7 +613,7 @@ public class ThreadPoolExecutor extends AbstractExecutorService {
             int rs = runStateOf(c);
 
             // 如果线程池是SHUTDOWN状态并且阻塞队列为空的话，worker数量减一，直接返回null(SHUTDOWN状态还会处理阻塞队列任务，但是阻塞队列为空的话就结束了)
-            // 如果线程池是STOP状态的话，worker数量建议，直接返回null(STOP状态不处理阻塞队列任务)
+            // 如果线程池是STOP/TIDYING/TERMINATED状态的话，worker数量建议，直接返回null(STOP状态不处理阻塞队列任务)
             if (rs >= SHUTDOWN && (rs >= STOP || workQueue.isEmpty())) {
                 decrementWorkerCount();
                 return null;
@@ -620,6 +629,7 @@ public class ThreadPoolExecutor extends AbstractExecutorService {
             if ((wc > maximumPoolSize || (timed && timedOut)) && (wc > 1 || workQueue.isEmpty())) {
                 // worker数量减一，返回null，之后会进行Worker回收工作
                 if (compareAndDecrementWorkerCount(c)) {
+                    // 外层方法进行 Worker 线程的回收
                     return null;
                 }
                 continue;
@@ -766,6 +776,14 @@ public class ThreadPoolExecutor extends AbstractExecutorService {
             reject(command);
         }
     }
+
+
+    /**
+     * shutdown 与 shutdownNow 区别
+     * shutdown 将线程池状态更新为 SHUTDOWN 状态；shutdownNow 将线程池状态更新为 STOP 状态。
+     * shutdown 中断所有的空闲线程（可以获取 Worker 锁）; shutdownNow 中断所有线程，包括运行中的线程。
+     * shutdownNow 返回空闲任务列表，shutdown 无返回值。
+     */
 
     @Override
     public void shutdown() {
