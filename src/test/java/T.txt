@@ -1,0 +1,50 @@
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.junit.Before;
+import org.junit.Test;
+import org.openjdk.jol.info.ClassLayout;
+import sun.misc.Unsafe;
+
+import java.lang.reflect.Field;
+
+@Setter
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
+class Demo {
+    private int age;
+    private long id;
+}
+
+/**
+ * -XX:+UseSerialGC -XX:-UseCompressedOops -Xms10m -Xmx10m
+ * -XX:-UseCompressedOops 关闭指针压缩
+ */
+public class T {
+
+    private Unsafe unsafe;
+
+    @Before
+    public void setUp() throws Exception {
+        try {
+            Field field = Unsafe.class.getDeclaredField("theUnsafe");
+            field.setAccessible(true);
+            unsafe = (Unsafe) field.get(null);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void test() throws NoSuchFieldException {
+
+        Demo demo = new Demo();
+
+        System.out.println(ClassLayout.parseClass(Demo.class).toPrintable());
+
+        System.out.println(unsafe.objectFieldOffset(Demo.class.getDeclaredField("age")));
+        System.out.println(unsafe.objectFieldOffset(Demo.class.getDeclaredField("id")));
+    }
+}
