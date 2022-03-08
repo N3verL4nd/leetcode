@@ -1,5 +1,8 @@
 import org.junit.Test;
 
+import java.lang.management.ManagementFactory;
+import java.lang.management.ThreadInfo;
+import java.lang.management.ThreadMXBean;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.BinaryOperator;
@@ -21,5 +24,14 @@ public class T1 {
         });
 
         System.out.println(map);
+    }
+
+    @Test
+    public void test1() {
+        ThreadMXBean threadMXBean = ManagementFactory.getThreadMXBean();
+        ThreadInfo[] threadInfos = threadMXBean.dumpAllThreads(true, true);
+        for (ThreadInfo threadInfo : threadInfos) {
+            System.out.println(threadInfo.getThreadId() + " " + threadInfo.getThreadName());
+        }
     }
 }
