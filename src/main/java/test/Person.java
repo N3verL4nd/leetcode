@@ -1,10 +1,12 @@
 package test;
 
+import java.io.Serializable;
+
 /**
  * @author liguanghui02
  * @date 2021/2/18
  */
-public class Person {
+public class Person implements Serializable {
     private int age;
     private String name;
 
