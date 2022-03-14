@@ -16,6 +16,9 @@ import java.util.Arrays;
  * @date 2022/2/22
  */
 public class SerializeTest {
+    /**
+     * hessian序列化
+     */
     @Test
     public void test1() {
         byte[] data = null;
@@ -42,6 +45,11 @@ public class SerializeTest {
     }
 
 
+    /**
+     * protobuf 序列化
+     *
+     * @throws IOException
+     */
     @Test
     public void test2() throws IOException {
         byte[] data = new byte[10];
@@ -59,7 +67,7 @@ public class SerializeTest {
         CodedInputStream inputStream = CodedInputStream.newInstance(data);
 
         PersonModel.Person.Builder builder = PersonModel.Person.newBuilder();
-        inputStream.readMessage(builder , null);
+        inputStream.readMessage(builder, null);
 
         System.out.println(builder.build());
 
