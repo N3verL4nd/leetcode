@@ -1,6 +1,7 @@
 package test.nio;
 
 import java.net.InetSocketAddress;
+import java.net.SocketAddress;
 import java.nio.channels.SelectionKey;
 import java.nio.channels.Selector;
 import java.nio.channels.ServerSocketChannel;
@@ -42,8 +43,12 @@ public class NioLevelTriggerServer {
                     accept.register(selector, SelectionKey.OP_READ);
                 } else if (key.isReadable()) {
                     SocketChannel channel = (SocketChannel) key.channel();
-
                     // 不读取任何数据，缓冲区始终不为空
+
+
+                    SocketAddress remoteAddress = channel.getRemoteAddress();
+
+                    System.out.println(remoteAddress);
                 }
             }
             System.out.println("休眠一秒, 减缓输出, 便于观察");
@@ -51,3 +56,12 @@ public class NioLevelTriggerServer {
         }
     }
 }
+
+/*
+
+对于读操作
+只要缓冲内容不为空，LT模式返回读就绪。
+对于写操作
+只要缓冲区还不满，LT模式会返回写就绪。
+
+ */

@@ -1,5 +1,8 @@
 import org.junit.Test;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.ReentrantLock;
 
 /**
@@ -34,5 +37,17 @@ public class T3 {
 
     @Test
     public void test3() {
+        System.out.println(new Thread().getName()); // Thread-0
+        ExecutorService executorService = Executors.newFixedThreadPool(10);
+        for (int i = 0; i < 20; i++) {
+            executorService.submit(() -> {
+                System.out.println(Thread.currentThread().getName());
+            });
+        }
+        try {
+            TimeUnit.SECONDS.sleep(10);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }
