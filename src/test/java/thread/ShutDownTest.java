@@ -135,6 +135,7 @@ public class ShutDownTest {
         executorService.shutdown();
 
         while (!executorService.awaitTermination(1, TimeUnit.SECONDS)) {
+            System.out.println("还有任务未结束");
         }
     }
 }
