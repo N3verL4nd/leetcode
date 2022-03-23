@@ -1,24 +1,19 @@
 package test.nio;
 
+import java.io.IOException;
 import java.net.InetSocketAddress;
-import java.net.SocketAddress;
+import java.nio.ByteBuffer;
 import java.nio.channels.SelectionKey;
 import java.nio.channels.Selector;
 import java.nio.channels.ServerSocketChannel;
 import java.nio.channels.SocketChannel;
 import java.util.Iterator;
-import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
-/**
- * NIO 水平触发测试
- * 验证java nio水平触发的办法是客户端写多个字节(比如1000个)，服务端每次都不读取字节，缓冲区一直没读完，处于非空状态。由于水平触发，读事件应当会一直触发。
- *
- * @author N3verL4nd
- * @date 2021/7/20
- */
-public class NioLevelTriggerServer {
-    public static void main(String[] argv) throws Exception {
+public class WeakUpTest {
+    private static volatile boolean stopped = false;
+
+    public static void main(String[] args) throws Exception {
         Selector selector = Selector.open();
         ServerSocketChannel server = ServerSocketChannel.open();
         server.bind(new InetSocketAddress("0.0.0.0", 8888));
@@ -27,16 +22,23 @@ public class NioLevelTriggerServer {
 
         new Thread(() -> {
             try {
-                TimeUnit.SECONDS.sleep(20);
+                TimeUnit.SECONDS.sleep(10);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
             selector.wakeup();
+            try {
+                server.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            stopped = true;
         }).start();
 
-        while (true) {
+        while (!stopped) {
             int n = selector.select();
             if (n == 0) {
+                // 此处存在 epoll 假唤醒问题
                 continue;
             }
 
@@ -46,6 +48,12 @@ public class NioLevelTriggerServer {
             while (keys.hasNext()) {
                 SelectionKey key = keys.next();
                 keys.remove();
+
+                // skip if not valid
+                if (!key.isValid()) {
+                    continue;
+                }
+
                 if (key.isAcceptable()) {
                     ServerSocketChannel channel = (ServerSocketChannel) key.channel();
                     SocketChannel accept = channel.accept();
@@ -53,25 +61,16 @@ public class NioLevelTriggerServer {
                     accept.register(selector, SelectionKey.OP_READ);
                 } else if (key.isReadable()) {
                     SocketChannel channel = (SocketChannel) key.channel();
-                    // 不读取任何数据，缓冲区始终不为空
-
-
-                    SocketAddress remoteAddress = channel.getRemoteAddress();
-
-                    System.out.println(remoteAddress);
+                    ByteBuffer buffer = ByteBuffer.allocate(256);
+                    channel.read(buffer);
+                    String output = new String(buffer.array()).trim();
+                    System.out.println("Message read from client: " + output);
+                    if ("close".equals(output)) {
+                        channel.close();
+                        System.out.println("The Client messages are complete; close the session.");
+                    }
                 }
             }
-            System.out.println(UUID.randomUUID());
-            TimeUnit.SECONDS.sleep(1);
         }
     }
 }
-
-/*
-
-对于读操作
-只要缓冲内容不为空，LT模式返回读就绪。
-对于写操作
-只要缓冲区还不满，LT模式会返回写就绪。
-
- */
