@@ -22,7 +22,6 @@ public class SelectBug {
         socketChannel.configureBlocking(false);
         socketChannel.register(selector, SelectionKey.OP_ACCEPT);
 
-        Set<SelectionKey> selectionKeys = selector.selectedKeys();
         while (true) {
             System.out.println("等待...");
             /**
@@ -39,7 +38,7 @@ public class SelectBug {
              */
             int noOfKeys = selector.select();
             System.out.println("selected keys:" + noOfKeys);
-            Iterator<SelectionKey> itr = selectionKeys.iterator();
+            Iterator<SelectionKey> itr = selector.selectedKeys().iterator();
             while (itr.hasNext()) {
                 SelectionKey key = itr.next();
                 itr.remove();
