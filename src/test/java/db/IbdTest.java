@@ -102,7 +102,12 @@ public class IbdTest {
         byte[] pageLevel = new byte[2];
         pageLevel[0] = pageHeader[26];
         pageLevel[1] = pageHeader[27];
-        System.out.println("pageLevel: " + printHexBinary(pageLevel));
+        System.out.println("pageLevel: " + new BigInteger(pageLevel).intValue());
+
+        byte[] userRecordSize = new byte[2];
+        userRecordSize[0] = pageHeader[16];
+        userRecordSize[1] = pageHeader[17];
+        System.out.println("userRecordSize: " + new BigInteger(userRecordSize).intValue());
 
 
         System.out.println("fileHeader: " + printHexBinary(fileHeader));
@@ -144,7 +149,7 @@ public class IbdTest {
         file.seek((currentPage + 1) * pageSize - 8);
         file.read(fileTrailer);
         System.out.println("fileTrailer: " + printHexBinary(fileTrailer));
-
+        System.out.println("\n");
     }
 
     @Test
@@ -168,5 +173,12 @@ public class IbdTest {
         show(3);
         show(36877);
         show(53781);
+    }
+
+    @Test
+    public void testShowAll() throws IOException {
+        for (int page = 3; page < pageCount; page++) {
+            show(page);
+        }
     }
 }
